@@ -19,7 +19,7 @@ public class TestCumpleaños {
 		PlanificadorDeEventos principal = new PlanificadorDeEventos();
 		principal.add(new Usuario(mailOrganizador, nombreOrganizador, edadOrganizador));
 		principal.crear(principal.getUsuario(mailOrganizador),
-				new Cumple((Agasajado) new Usuario(mailAgasajado, nombreAgasajado, edadAgasajado)));
+				new Cumple(new Agasajado(mailAgasajado, nombreAgasajado, edadAgasajado)));
 
 		// Validación
 		assertEquals(cantidadDeUsuariosEsperados, principal.getCantidadDeUsuarios());
@@ -38,8 +38,8 @@ public class TestCumpleaños {
 				mailAgasajado2 = "rodrigo@redrado.com", nombreAgasajado2 = "Rodrigo Redrado",
 				nombreDelEvento = "El casamiento de Luli y Rodri";
 		final Integer edadOrganizador = 101, edadAgasajado1 = 36, edadAgasajado2 = 43;
-		final Integer cantidadDeUsuariosEsperados = 2, cantidadDeEventosEsperados = 1,
-				cantidadDeCumpleaniosEsperados = 1, cantidadDeCasamientosEsperados = 0;
+		final Integer cantidadDeUsuariosEsperados = 3, cantidadDeEventosEsperados = 1,
+				cantidadDeCumpleaniosEsperados = 0, cantidadDeCasamientosEsperados = 1;
 
 		// Ejecución
 		PlanificadorDeEventos principal = new PlanificadorDeEventos();
@@ -48,9 +48,9 @@ public class TestCumpleaños {
 		principal.add(new Usuario(mailAgasajado2, nombreAgasajado2, edadAgasajado2));
 		principal.crear(principal.getUsuario(mailOrganizador), nombreDelEvento);
 		principal.getEvento(nombreDelEvento)
-				.add((Agasajado) new Usuario(mailAgasajado1, nombreAgasajado1, edadAgasajado1));
+				.add(new Agasajado(mailAgasajado1, nombreAgasajado1, edadAgasajado1));
 		principal.getEvento(nombreDelEvento)
-				.add((Agasajado) new Usuario(mailAgasajado1, nombreAgasajado1, edadAgasajado1));
+				.add(new Agasajado(mailAgasajado1, nombreAgasajado1, edadAgasajado1));
 		// Validación
 		assertEquals(cantidadDeUsuariosEsperados, principal.getCantidadDeUsuarios());
 		assertEquals(cantidadDeEventosEsperados, principal.getCantidadDeEventos());
@@ -73,8 +73,8 @@ public class TestCumpleaños {
 		principal.add(new Usuario(mailOrganizador, nombreOrganizador, edadOrganizador));
 		principal.add(new Usuario("kunaguero@kunisports.com", "Sergio Aguero", 36));
 		principal.add(new Usuario("kmbappe@second.com", "Kylian Mbapee", 24));
-		Usuario organizadorDelEvento = principal.getUsuario(mailOrganizador);
-		Cumple elCumpleDeLeo = new Cumple((Agasajado) new Usuario(mailAgasajado, nombreAgasajado, edadAgasajado));
+		Usuario organizadorDelEvento = (Usuario) principal.getUsuario(mailOrganizador);
+		Cumple elCumpleDeLeo = new Cumple(new Agasajado(mailAgasajado, nombreAgasajado, edadAgasajado));
 		principal.crear(organizadorDelEvento, elCumpleDeLeo);
 		principal.invitar(elCumpleDeLeo, new Usuario("kunaguero@kunisports.com", "Sergio Aguero", 36));
 		principal.invitar(elCumpleDeLeo, new Usuario("kmbappe@second.com", "Kylian Mbapee", 24));
@@ -85,7 +85,7 @@ public class TestCumpleaños {
 	}
 
 	@Test
-	public void queUnInvitadoPuedaConfirarSuAsistencia () {
+	public void queUnInvitadoPuedaConfirarSuAsistencia() {
 		// Preparación
 		final String mailOrganizador = "chiquitapia@afa.com", nombreOrganizador = "Chiqui Tapia", mailAgasajado = "lio@Messi.com", nombreAgasajado = "Lionel Messi";
 		final Integer edadOrganizador = 55, edadAgasajado = 36;
